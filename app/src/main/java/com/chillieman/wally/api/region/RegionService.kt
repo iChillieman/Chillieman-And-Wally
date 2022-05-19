@@ -28,6 +28,8 @@ class RegionService @Inject constructor() {
         api = retrofit.create(RegionAPI::class.java)
     }
 
-    fun fetchRegions(): Observable<List<RegionItem>> = api.getRegions()
+    fun fetchRegions(): Observable<List<RegionItem>> = api.getRegions().onErrorReturnItem(
+        listOf(RegionItem.generateErrorRegionItem())
+    )
 
 }
